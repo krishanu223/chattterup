@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Chat-Room App</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
+</head>
+
+<body onload="usernametake()">
+
+
+    <div id=user_img>
+        <div id="uicon">
+            <img id="uiicon" src="https://picsum.photos/200">
+        </div>
+        <span id="typing_status"></span>
+        <img id="numuser" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuobA6CE35uNusTOnQC-5ykP45wZ-JdE16PcN84-DFaXEGDnoPrueBT7Ea1zAY8N7GJQs&usqp=CAU">
+        <span id="numberofjoin"></span>
+        <img id="numuser1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw5g3qecKoWg-kReJhRRHCjiKM_qm8dlWoCxHxviogYQ&s">
+        <span id="numberofleave"></span>
+    </div>
+    <div id="connecteduser">
+
+        <div id="navcon">
+
+            <div id="cheader">
+                <h3>Connected User</h3>
+                <button id="cbut" onclick="closeconwindow()">close</button>
+            </div>
+
+        </div>
+
+
+        <ul id="user-contain" style="list-style-type: none;">
+        </ul>
+
+
+    </div>
+    <div id="disconnected">
+        <div id="navcon2">
+            <div id="dheader">
+                <h3>Disconnected User</h3>
+            </div>
+        </div>
+        <ul id="disuser-contain" style="list-style-type: none;">
+
+        </ul>
+    </div>
+
+    <div id="chatboard">
+        <div id="chathead">
+            <button id="ubut" onclick="cusersw()">Users</button>
+            <img id="welicon" src="https://picsum.photos/200">
+            <span id="welcome"></span>
+            <span id="typeindiforall"></span>
+            <span id="joinusername"></span>
+            <span id="disconnectedusername"></span>
+        </div>
+
+
+
+        <div id="chat-container">
+            <ul id="message-display"></ul>
+        </div>
+        <form id="message-form">
+            <input type="text" id="message-input" placeholder="Type your message" required>
+            <button type="submit" id="sendbut"><img style="width:1.2rem;height:1.2rem" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2C7qS3w7Ujw8RF3PSZUeFcHVKH9MxFWxFzQ8neArMn3rbp5JMGKHo0QkpKW73WyPl2l8&usqp=CAU"></button>
+        </form>
+    </div>
+
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://localhost:3000');
+
+        const loginContainer = document.getElementById('login-container');
+        const chatContainer = document.getElementById('chat-container');
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+        const messageDisplay = document.getElementById('message-display');
+        const Messagelist = document.getElementById('user-contain')
+        const usernamedisplay = document.getElementById("joinusername");
+        const type_status = document.getElementById("typing_status");
+        const universa_type_status = document.getElementById("typeindiforall")
+        const leaveuser = document.getElementById("disconnectedusername");
+        const disusercontent = document.getElementById('disuser-contain');
+        const Numofjoin = document.getElementById('numberofjoin');
+        const Numofleave = document.getElementById('numberofleave');
+        const Welcome = document.getElementById('welcome');
+        const close = document.getElementById("closeconnecteduser");
+        const connecteduserwindow = document.getElementById("connecteduser")
+        const cbbut = document.getElementById("cbut")
+        let Username = '';
+        let room = '';
+        let typingTimeout;
+        var theight = 0;
+        var winwidth = window.innerWidth;
+
+        function closeconwindow() {
+            connecteduserwindow.style.visibility = "hidden";
+        }
+
+        window.addEventListener("resize", function() {
+            console.log(window.innerWidth, window.innerHeight);
+            if (window.innerWidth > 770) {
+                connecteduserwindow.style.visibility = "visible";
+                console.log("i am working")
+            } else {
+                connecteduserwindow.style.visibility = "hidden";
+
+
+            }
+        });
+
+        function cusersw() {
+            connecteduserwindow.style.visibility = "visible";
+
+        }
+
+        function usernametake() {
+            const username = prompt("Please Enter your name");
+            Username = username;
+            socket.emit('join', {
+                username
+            });
+        }
+
+
+        socket.on('welcomemes', (data) => {
+            Welcome.innerHTML = "Welcome " + data.text;
+        })
+
+
+        // Event handler for the message form
+        messageForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = messageInput.value;
+            console.log(Username)
+                // Emit a 'sendMessage' event to send the message to the server
+            socket.emit('sendMessage', {
+                Username,
+                message
+            });
+            messageInput.value = '';
+            /////////////////////////////Autometic scrool chatboard///////////////////////////
+            setTimeout(() => {
+                var elem = document.getElementsByClassName('mesi');
+                let lenghtofelem = elem.length;
+
+
+                for (let i = 0; i < lenghtofelem; i++) {
+                    theight = theight + elem[i].offsetHeight;
+                    console.log("total height:", theight)
+                }
+                let scrollele = elem[lenghtofelem - 1];
+                chatContainer.scroll(0, theight + scrollele.offsetHeight);
+
+
+            }, 50);
+
+        });
+
+        /////////////////////////////////display previous message////////////////////////////////////////
+        socket.on("previousMessages", (previousMessages) => {
+
+                previousMessages.forEach(message => {
+                    const messageElement = document.createElement("div");
+                    messageElement.className = "mesi"
+                    messageElement.innerHTML = ` <img id="messageicon" src="https://i.pinimg.com/236x/bf/57/02/bf57026ee75af2f414000cec322f7404.jpg"><span id="spaan"> ${new Date(message.timestamp).toDateString() + "-" + message.username }</span><br><hr>${message.message}`;
+                    messageDisplay.appendChild(messageElement);
+                    if (message.username != Username) {
+                        messageElement.classList.remove("mesi");
+                        messageElement.classList.add("left")
+                    }
+
+
+                    setTimeout(() => {
+                        var elem = document.getElementsByClassName('left');
+                        let lenghtofelem = elem.length;
+                        for (let i = 0; i < lenghtofelem; i++) {
+                            theight = theight + elem[i].offsetHeight;
+                        }
+                        chatContainer.scroll(0, theight);
+                    }, 110);
+
+                });
+            })
+            // Listen for incoming messages from the server
+        socket.on("messageforjoinuser", (message) => {
+            console.log(message)
+            usernamedisplay.innerHTML = message.text
+        })
+        socket.on("newuser", (message) => {
+                const listItems = document.querySelectorAll("li");
+                let userlist = [];
+                let flage = true;
+                Numofjoin.innerHTML = message.length;
+
+                function createhtmllist(message) {
+                    const list = document.createElement('li')
+                    list.innerHTML = `
+                    <div id="greendot"></div>
+                    <img src="https://w7.pngwing.com/pngs/584/113/png-transparent-pink-user-icon.png">` + message;
+                    Messagelist.append(list)
+                }
+
+                function renderlist(message) {
+                    Messagelist.innerHTML = ""
+                    for (let i = 0; i < message.length; i++) {
+                        createhtmllist(message[i])
+                    }
+                }
+                renderlist(message)
+
+
+            }
+
+
+
+        )
+        socket.on('message', (message) => {
+            // Display the received message in the message display area
+            var audiop = new Audio("alerttone.mp3");
+            let messageElement = document.createElement('div');
+            let iconurl = "https://picsum.photos/200";
+
+            messageElement.className = "mesi";
+            if (message.username != Username) {
+                iconurl = "https://i.pinimg.com/236x/bf/57/02/bf57026ee75af2f414000cec322f7404.jpg"
+
+            }
+            messageElement.innerHTML = `
+                <img id="messageicon" src=${iconurl}><span id="spaan">${message.username ? message.username:""}</span><br><hr>${message.text}`;
+            messageDisplay.appendChild(messageElement);
+            if (message.username != Username) {
+                messageElement.classList.remove("mesi");
+                messageElement.classList.add("left");
+
+                function audio() {
+                    audiop.play();
+                }
+                audio();
+            }
+            console.log();
+
+
+        });
+
+        /////////////////////////////////////////typing indicator////////////////////////////////////////
+
+        socket.on("typing", (data) => {
+            universa_type_status.innerHTML = data + "Typing..."
+        });
+        socket.on("stop typing", () => {
+            universa_type_status.innerHTML = ""
+        })
+        socket.on("user disconnected", (data) => {
+            console.log(data.user, data.disconnecteduser);
+            leaveuser.innerHTML = "Last " + data.user + "leave the room";
+            message = data.userarray;
+            leavemessage = data.disconteduser;
+            //////////////////////////////////join user renderlist//////////////////////////////////////////
+            Numofleave.innerHTML = leavemessage.length;
+            renderlist2(leavemessage);
+            console.log(data.disconteduser, "remove list")
+
+            function createhtmllist2(leavemessage) {
+                const list = document.createElement('li')
+
+                list.innerHTML = `
+                
+                <img src="https://w7.pngwing.com/pngs/584/113/png-transparent-pink-user-icon.png">` + leavemessage;
+                disusercontent.append(list)
+            }
+
+            function renderlist2(leavemessage) {
+                disusercontent.innerHTML = ""
+                for (let i = 0; i < leavemessage.length; i++) {
+                    createhtmllist2(leavemessage[i])
+                }
+            }
+
+            //////////////////////////////////////leave user renderlist/////////////////////////
+
+
+            renderlist(message)
+            console.log('datausera', data.userarray)
+
+            function createhtmllist(message) {
+                const list = document.createElement('li')
+                list.innerHTML = `
+                <div id="greendot"></div>
+                <img src="https://w7.pngwing.com/pngs/584/113/png-transparent-pink-user-icon.png">` + message;
+                Messagelist.append(list)
+            }
+
+            function renderlist(message) {
+                Messagelist.innerHTML = "";
+
+                for (let i = 0; i < message.length; i++) {
+                    createhtmllist(message[i])
+                }
+            }
+
+
+        })
+
+        messageInput.addEventListener('keypress', () => {
+            socket.emit('typing', {
+                user: Username
+            });
+            type_status.innerHTML = "Typing..."
+            console.log(Username, "typing...")
+            clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(() => {
+                console.log("Destroy Funcion Timeout")
+                socket.emit('stop typing');
+                type_status.innerHTML = ""
+            }, 3000);
+        });
+    </script>
+
+
+</body>
+
+</html>

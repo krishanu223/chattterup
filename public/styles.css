@@ -1,0 +1,509 @@
+body {
+    background-color: rgb(228, 245, 255);
+    font-family: "Roboto", sans-serif;
+}
+
+#uicon {
+    position: absolute;
+    width: 50%;
+    border-radius: 50%;
+    height: 9%;
+    top: 2%;
+    left: 20%;
+    background-size: cover;
+    border: 2px solid white;
+}
+
+#uiicon {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+#user_img {
+    position: absolute;
+    width: 8%;
+    height: 97%;
+    background-color: rgb(106, 0, 255);
+    border-radius: 25px;
+    top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px
+}
+
+#typing_status {
+    color: white;
+    font-size: 1rem;
+    top: 12%;
+    left: 21%;
+    position: absolute;
+    font-weight: 600;
+}
+
+#numberofjoin {
+    color: white;
+    font-size: 1rem;
+    top: 30%;
+    left: 37%;
+    position: absolute;
+    font-weight: 600;
+}
+
+#numberofleave {
+    color: white;
+    font-size: 1rem;
+    top: 45%;
+    left: 37%;
+    position: absolute;
+    font-weight: 600;
+}
+
+#numuser {
+    position: absolute;
+    width: 50%;
+    height: 9%;
+    background-color: rgb(106, 0, 255);
+    border-radius: 50%;
+    top: 20%;
+    left: 20%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#numuser1 {
+    position: absolute;
+    width: 50%;
+    height: 9%;
+    background-color: rgb(106, 0, 255);
+    border-radius: 50%;
+    top: 35%;
+    left: 20%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#connecteduser {
+    width: 20%;
+    height: 60%;
+    position: absolute;
+    top: 1%;
+    left: 9%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    box-shadow: 0px 1px 10px 1px rgb(120, 120, 120);
+    overflow: scroll;
+    margin: 5px;
+    visibility: visible;
+}
+
+#navcon {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    height: 20%;
+    margin-top: -12%;
+    z-index: 2;
+    top: 0px;
+    position: sticky;
+    box-shadow: 0px 2px 10px 1px rgb(181, 181, 181);
+}
+
+#cheader {
+    width: 95%;
+    height: 50%;
+    background-color: rgb(106, 0, 255);
+    border-radius: 50px;
+    margin-left: 3%;
+    top: 20%;
+    position: relative;
+    text-align: center;
+}
+
+#cheader>h3 {
+    color: rgb(255, 255, 255);
+    position: relative;
+    font-weight: 600;
+    top: 10%;
+}
+
+#navcon2 {
+    width: 99%;
+    background-color: rgb(255, 255, 255);
+    height: 20%;
+    margin-top: -1.3rem;
+    z-index: 2;
+    top: 0;
+    position: sticky;
+    box-shadow: 0px 2px 10px 1px rgb(181, 181, 181);
+}
+
+#disconnected {
+    width: 20%;
+    height: 35%;
+    position: absolute;
+    top: 62%;
+    left: 9%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 25px;
+    box-shadow: 0px 1px 10px 1px rgb(120, 120, 120);
+    overflow: scroll;
+    visibility: visible;
+}
+
+#dheader {
+    width: 95%;
+    height: 70%;
+    background-color: rgb(106, 0, 255);
+    border-radius: 50px;
+    position: relative;
+    left: 3%;
+    top: 15%;
+    text-align: center;
+}
+
+#dheader>h3 {
+    color: rgb(255, 255, 255);
+    position: relative;
+    font-weight: 300;
+    font-size: 1.1rem;
+    top: 10%;
+}
+
+#disuser-contain>li {
+    width: 90%;
+    padding: 10px;
+    border-bottom: 1px solid rgb(206, 206, 206);
+    font-size: 1.2rem;
+    left: -0.8rem;
+    position: relative;
+}
+
+#disuser-contain>li>img {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    position: relative;
+    top: .3rem;
+    left: -1rem;
+}
+
+#user-contain>li {
+    width: 90%;
+    padding: 10px;
+    border-bottom: 1px solid rgb(206, 206, 206);
+    font-size: 1.2rem;
+    left: -0.8rem;
+    position: relative;
+}
+
+#user-contain>li>img {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    position: relative;
+    top: .3rem;
+    left: -1rem;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#chatboard {
+    width: 70%;
+    height: 97vh;
+    margin-left: 30%;
+    border-radius: 25px;
+    background-image: url("backwhat.jpg");
+    box-shadow: 0px 1px 10px 1px rgb(120, 120, 120);
+}
+
+#chathead {
+    width: 100%;
+    height: 9%;
+    background-color: rgb(113, 0, 227);
+    position: sticky;
+    top: 0;
+    border-radius: 25px 25px 0 0;
+    border-bottom: 1px solid rgb(206, 206, 206);
+}
+
+#message-form {
+    width: 100%;
+    margin-top: 2%;
+}
+
+#message-display {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-flow: column;
+    margin-left: -26px;
+}
+
+#message-input {
+    width: 90%;
+    height: 30px;
+    border-style: none;
+    background-color: rgb(196, 196, 196);
+    border-radius: 50px;
+    margin-left: 1%;
+    font-size: 1rem;
+    padding-left: 10px;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+#sendbut {
+    border-radius: 25px;
+    height: 30px;
+    border-style: none;
+    background-color: rgb(251, 251, 251);
+    width: 5%;
+    margin-top: 5px;
+    color: white;
+    box-shadow: 0px 0px 5px 2px gray;
+}
+
+#chat-container {
+    height: 80%;
+    overflow: auto;
+}
+
+#welcome {
+    left: 3rem;
+    position: relative;
+    top: -.7rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+}
+
+#spaan {
+    font-size: 13px;
+    font-weight: 10;
+}
+
+#welicon {
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    top: .8rem;
+    left: .5rem;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    display: block;
+}
+
+#greendot {
+    width: 9px;
+    height: 9px;
+    background-color: green;
+    border-radius: 50%;
+    position: relative;
+    top: 35px;
+    left: 10px;
+    z-index: 10;
+}
+
+#disconnectedusername {
+    position: relative;
+    color: white;
+    margin-left: -5.8rem;
+    top: -1.7rem;
+}
+
+#typeindiforall {
+    position: relative;
+    left: -5rem;
+    top: -2rem;
+    color: white;
+}
+
+.mesi {
+    color: white;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    max-width: 20rem;
+    width: fit-content;
+    background-color: rgb(0, 72, 255);
+    border-radius: 10px 0 10px 0;
+    align-self: flex-end;
+}
+
+#closeconnecteduser {
+    font-size: 15px;
+    top: 36px;
+    left: 234px;
+    position: relative;
+    visibility: hidden;
+}
+
+.left {
+    color: rgb(21, 21, 21);
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    max-width: 20rem;
+    width: fit-content;
+    background-color: rgb(201, 201, 201);
+    border-radius: 10px 0 10px 0;
+    align-self: flex-start;
+}
+
+#joinusername {
+    position: relative;
+    color: rgb(255, 255, 255);
+    left: 4rem;
+    top: -.5rem;
+}
+
+#ubut {
+    display: none;
+}
+
+#cbut {
+    border-radius: 50px;
+    color: white;
+    background-color: red;
+}
+
+@media only screen and (max-width: 1080px) {
+    #user_img {
+        width: 7%;
+    }
+    #uicon {
+        width: 50%;
+        height: 5%;
+    }
+    #numuser {
+        position: absolute;
+        width: 50%;
+        height: 5%;
+        background-color: rgb(106, 0, 255);
+        border-radius: 50%;
+        top: 15%;
+        left: 20%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #numuser1 {
+        position: absolute;
+        width: 50%;
+        height: 5%;
+        background-color: rgb(106, 0, 255);
+        border-radius: 50%;
+        top: 25%;
+        left: 20%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #numberofjoin {
+        color: white;
+        font-size: 1rem;
+        top: 21%;
+        left: 35%;
+        position: absolute;
+        font-weight: 600;
+    }
+    #numberofleave {
+        color: white;
+        font-size: .8rem;
+        top: 31%;
+        left: 37%;
+        position: absolute;
+        font-weight: 600;
+    }
+    #typing_status {
+        font-size: 0.8;
+        top: 8%;
+        left: 19%;
+    }
+    #cheader>h3 {
+        top: 15%;
+        height: 35%;
+        font-size: 1rem;
+    }
+    #navcon {
+        height: 17%;
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    #welicon {
+        left: 10px;
+        position: relative;
+        top: 0.3rem;
+        font-size: 25px;
+        font-weight: 600;
+        color: rgb(255, 255, 255);
+    }
+    #welicon {
+        left: 10px;
+        position: relative;
+        top: 0.3rem;
+        font-size: 25px;
+        font-weight: 600;
+        color: rgb(255, 255, 255)
+    }
+    #joinusername {
+        visibility: hidden;
+    }
+    #disconnectedusername {
+        visibility: hidden;
+    }
+    #connecteduser {
+        width: 80%;
+        height: 90vh;
+        z-index: 1;
+        visibility: hidden;
+    }
+    #closeconnecteduser {
+        font-size: 20px;
+        visibility: hidden;
+    }
+    #user_img {
+        visibility: hidden;
+    }
+    #disconnected {
+        visibility: hidden;
+    }
+    #chatboard {
+        width: 100%;
+        margin-left: 0%;
+    }
+    #message-input {
+        width: 80%
+    }
+    #sendbut {
+        width: 8%;
+    }
+    #user-contain {
+        margin-top: 90px;
+    }
+    #ubut {
+        display: block;
+        border-radius: 50px;
+        position: relative;
+        float: right;
+        margin: 10px;
+        font-size: 1.2rem;
+    }
+}
+
+#messageicon {
+    width: 20px;
+    height: 19px;
+    border: 1px solid black;
+    position: relative;
+    display: inline-block;
+    margin: 2px;
+    left: -2px;
+    border-radius: 50%;
+}

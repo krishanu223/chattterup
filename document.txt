@@ -1,0 +1,2 @@
+index.js main run file
+localhost:3000 for open chat app
